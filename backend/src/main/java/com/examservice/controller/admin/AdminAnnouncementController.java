@@ -1,5 +1,6 @@
 package com.examservice.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.examservice.common.Result;
 import com.examservice.entity.Announcement;
 import com.examservice.service.AnnouncementService;
@@ -13,6 +14,13 @@ public class AdminAnnouncementController {
 
     @Autowired
     private AnnouncementService announcementService;
+
+    @GetMapping("/list")
+    public Result<Page<Announcement>> list(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return Result.success(announcementService.list(page, size));
+    }
 
     @PostMapping
     public Result<?> create(HttpServletRequest request, @RequestBody Announcement announcement) {
