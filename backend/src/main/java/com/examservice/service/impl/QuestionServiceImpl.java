@@ -33,10 +33,13 @@ public class QuestionServiceImpl implements QuestionService {
     private AnswerMapper answerMapper;
 
     @Override
-    public Page<QuestionVO> list(Long moduleId, int page, int size) {
+    public Page<QuestionVO> list(Long moduleId, String keyword, int page, int size) {
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
         if (moduleId != null) {
             wrapper.eq(Question::getModuleId, moduleId);
+        }
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            wrapper.like(Question::getTitle, keyword.trim());
         }
         wrapper.orderByDesc(Question::getCreateTime);
 
@@ -97,6 +100,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (user != null) {
             vo.setUsername(user.getUsername());
             vo.setNickname(user.getNickname());
+            vo.setAuthorName(user.getNickname() != null ? user.getNickname() : user.getUsername());
         }
         ExamModule module = examModuleMapper.selectById(question.getModuleId());
         if (module != null) {

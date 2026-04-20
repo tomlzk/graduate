@@ -20,9 +20,10 @@ public class QuestionController {
     @GetMapping("/list")
     public Result<Page<QuestionVO>> list(
             @RequestParam(required = false) Long moduleId,
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
-        return Result.success(questionService.list(moduleId, page, size));
+        return Result.success(questionService.list(moduleId, keyword, page, size));
     }
 
     @GetMapping("/detail/{id}")

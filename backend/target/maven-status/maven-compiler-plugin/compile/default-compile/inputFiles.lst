@@ -18,15 +18,18 @@ E:\graduate\backend\src\main\java\com\examservice\controller\admin\AdminPostCont
 E:\graduate\backend\src\main\java\com\examservice\controller\ExamInfoController.java
 E:\graduate\backend\src\main\java\com\examservice\service\QuestionService.java
 E:\graduate\backend\src\main\java\com\examservice\dto\RegisterDTO.java
+E:\graduate\backend\src\main\java\com\examservice\mapper\PostReplyMapper.java
 E:\graduate\backend\src\main\java\com\examservice\service\impl\UserServiceImpl.java
 E:\graduate\backend\src\main\java\com\examservice\entity\Announcement.java
 E:\graduate\backend\src\main\java\com\examservice\service\UserService.java
 E:\graduate\backend\src\main\java\com\examservice\controller\QuestionController.java
 E:\graduate\backend\src\main\java\com\examservice\service\impl\ExamInfoServiceImpl.java
 E:\graduate\backend\src\main\java\com\examservice\entity\ExamInfo.java
+E:\graduate\backend\src\main\java\com\examservice\service\impl\PostReplyServiceImpl.java
 E:\graduate\backend\src\main\java\com\examservice\vo\UserVO.java
 E:\graduate\backend\src\main\java\com\examservice\controller\admin\AdminUserController.java
 E:\graduate\backend\src\main\java\com\examservice\mapper\QuestionMapper.java
+E:\graduate\backend\src\main\java\com\examservice\entity\PostReply.java
 E:\graduate\backend\src\main\java\com\examservice\service\impl\AnswerServiceImpl.java
 E:\graduate\backend\src\main\java\com\examservice\service\AnnouncementService.java
 E:\graduate\backend\src\main\java\com\examservice\controller\PostController.java
@@ -34,6 +37,7 @@ E:\graduate\backend\src\main\java\com\examservice\dto\QuestionDTO.java
 E:\graduate\backend\src\main\java\com\examservice\exception\BusinessException.java
 E:\graduate\backend\src\main\java\com\examservice\entity\User.java
 E:\graduate\backend\src\main\java\com\examservice\mapper\PostMapper.java
+E:\graduate\backend\src\main\java\com\examservice\vo\PostReplyVO.java
 E:\graduate\backend\src\main\java\com\examservice\dto\AnswerDTO.java
 E:\graduate\backend\src\main\java\com\examservice\exception\GlobalExceptionHandler.java
 E:\graduate\backend\src\main\java\com\examservice\dto\UserProfileDTO.java
@@ -43,6 +47,7 @@ E:\graduate\backend\src\main\java\com\examservice\controller\admin\AdminAnnounce
 E:\graduate\backend\src\main\java\com\examservice\interceptor\JwtInterceptor.java
 E:\graduate\backend\src\main\java\com\examservice\controller\UserController.java
 E:\graduate\backend\src\main\java\com\examservice\common\Result.java
+E:\graduate\backend\src\main\java\com\examservice\service\PostReplyService.java
 E:\graduate\backend\src\main\java\com\examservice\config\MybatisPlusConfig.java
 E:\graduate\backend\src\main\java\com\examservice\controller\AnnouncementController.java
 E:\graduate\backend\src\main\java\com\examservice\controller\admin\AdminModuleController.java
@@ -56,8 +61,10 @@ E:\graduate\backend\src\main\java\com\examservice\service\PostService.java
 E:\graduate\backend\src\main\java\com\examservice\entity\Post.java
 E:\graduate\backend\src\main\java\com\examservice\config\CorsConfig.java
 E:\graduate\backend\src\main\java\com\examservice\controller\ExamModuleController.java
+E:\graduate\backend\src\main\java\com\examservice\controller\PostReplyController.java
 E:\graduate\backend\src\main\java\com\examservice\entity\Answer.java
 E:\graduate\backend\src\main\java\com\examservice\controller\admin\AdminQAController.java
+E:\graduate\backend\src\main\java\com\examservice\dto\PostReplyDTO.java
 E:\graduate\backend\src\main\java\com\examservice\service\impl\ExamModuleServiceImpl.java
 E:\graduate\backend\src\main\java\com\examservice\mapper\AnswerMapper.java
 E:\graduate\backend\src\main\java\com\examservice\service\ExamInfoService.java

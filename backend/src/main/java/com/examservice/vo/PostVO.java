@@ -11,6 +11,7 @@ public class PostVO {
     private String nickname;
     private Long moduleId;
     private String moduleName;
+    private String authorName;
     private String title;
     private String content;
     private Integer viewCount;

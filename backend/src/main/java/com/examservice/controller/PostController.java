@@ -20,9 +20,10 @@ public class PostController {
     @GetMapping("/list")
     public Result<Page<PostVO>> list(
             @RequestParam(required = false) Long moduleId,
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
-        return Result.success(postService.list(moduleId, page, size));
+        return Result.success(postService.list(moduleId, keyword, page, size));
     }
 
     @GetMapping("/detail/{id}")

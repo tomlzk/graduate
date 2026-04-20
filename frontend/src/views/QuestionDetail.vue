@@ -101,7 +101,7 @@ const loadQuestion = async () => {
 
 const loadAnswers = async () => {
   try {
-    const res = await getAnswerList(questionId)
+    const res = await getAnswerList({ questionId })
     answers.value = res.data || []
   } catch (e) {}
 }
@@ -113,7 +113,7 @@ const handleReply = async () => {
   }
   replyLoading.value = true
   try {
-    await createAnswer(questionId, { content: replyContent.value })
+    await createAnswer({ questionId, content: replyContent.value })
     ElMessage.success('回答成功')
     replyContent.value = ''
     loadAnswers()

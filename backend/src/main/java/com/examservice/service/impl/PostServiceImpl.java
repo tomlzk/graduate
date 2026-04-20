@@ -30,10 +30,13 @@ public class PostServiceImpl implements PostService {
     private ExamModuleMapper examModuleMapper;
 
     @Override
-    public Page<PostVO> list(Long moduleId, int page, int size) {
+    public Page<PostVO> list(Long moduleId, String keyword, int page, int size) {
         LambdaQueryWrapper<Post> wrapper = new LambdaQueryWrapper<>();
         if (moduleId != null) {
             wrapper.eq(Post::getModuleId, moduleId);
+        }
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            wrapper.like(Post::getTitle, keyword.trim());
         }
         wrapper.orderByDesc(Post::getCreateTime);
 
@@ -111,6 +114,7 @@ public class PostServiceImpl implements PostService {
         if (user != null) {
             vo.setUsername(user.getUsername());
             vo.setNickname(user.getNickname());
+            vo.setAuthorName(user.getNickname() != null ? user.getNickname() : user.getUsername());
         }
         ExamModule module = examModuleMapper.selectById(post.getModuleId());
         if (module != null) {

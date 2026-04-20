@@ -65,6 +65,7 @@ public class AnswerServiceImpl implements AnswerService {
         if (user != null) {
             vo.setUsername(user.getUsername());
             vo.setNickname(user.getNickname());
+            vo.setAuthorName(user.getNickname() != null ? user.getNickname() : user.getUsername());
         }
         return vo;
     }

@@ -28,8 +28,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/api/exam-info/list",
                         "/api/post/list",
                         "/api/post/detail/**",
+                        "/api/post-reply/list",
                         "/api/question/list",
                         "/api/question/detail/**",
+                        "/api/answer/list",
                         "/api/announcement/list"
                 );
 

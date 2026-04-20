@@ -132,6 +132,22 @@ CREATE TABLE `exam_info` (
     CONSTRAINT `fk_exam_info_module` FOREIGN KEY (`module_id`) REFERENCES `exam_module` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='考试信息表';
 
+-- -------------------------------------------
+-- 8. 帖子回复表
+-- -------------------------------------------
+CREATE TABLE `post_reply` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '回复ID',
+    `post_id` BIGINT NOT NULL COMMENT '帖子ID',
+    `user_id` BIGINT NOT NULL COMMENT '回复用户ID',
+    `content` TEXT NOT NULL COMMENT '回复内容',
+    `floor` INT NOT NULL COMMENT '楼层号',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_post_id` (`post_id`),
+    CONSTRAINT `fk_reply_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
+    CONSTRAINT `fk_reply_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='帖子回复表';
+
 -- ============================================
 -- 初始数据
 -- ============================================

@@ -9,6 +9,7 @@ public class QuestionVO {
     private Long userId;
     private String username;
     private String nickname;
+    private String authorName;
     private Long moduleId;
     private String moduleName;
     private String title;

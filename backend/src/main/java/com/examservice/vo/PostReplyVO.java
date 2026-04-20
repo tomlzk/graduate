@@ -4,13 +4,13 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class AnswerVO {
+public class PostReplyVO {
     private Long id;
-    private Long questionId;
+    private Long postId;
     private Long userId;
     private String username;
     private String nickname;
-    private String authorName;
     private String content;
+    private Integer floor;
     private LocalDateTime createTime;
 }

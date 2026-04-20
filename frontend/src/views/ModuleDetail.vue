@@ -30,6 +30,9 @@
       <!-- 帖子讨论 -->
       <el-tab-pane label="💬 帖子讨论" name="post">
         <div class="tab-toolbar">
+          <el-input v-model="postKeyword" placeholder="搜索帖子..." clearable style="width:240px;margin-right:12px" @keyup.enter="searchPosts" @clear="searchPosts">
+            <template #prefix><el-icon><Search /></el-icon></template>
+          </el-input>
           <el-button v-if="userStore.isLoggedIn" type="primary" @click="router.push(`/module/${moduleId}/post/create`)">
             <el-icon><EditPen /></el-icon> 发帖
           </el-button>
@@ -58,6 +61,9 @@
       <!-- 问答区 -->
       <el-tab-pane label="❓ 问答区" name="question">
         <div class="tab-toolbar">
+          <el-input v-model="questionKeyword" placeholder="搜索问题..." clearable style="width:240px;margin-right:12px" @keyup.enter="searchQuestions" @clear="searchQuestions">
+            <template #prefix><el-icon><Search /></el-icon></template>
+          </el-input>
           <el-button v-if="userStore.isLoggedIn" type="primary" @click="router.push(`/module/${moduleId}/question/create`)">
             <el-icon><EditPen /></el-icon> 提问
           </el-button>
@@ -112,6 +118,9 @@ const questionPage = ref(1)
 const questionPageSize = 10
 const questionTotal = ref(0)
 
+const postKeyword = ref('')
+const questionKeyword = ref('')
+
 const emojiMap = { 1: '🏛️', 2: '🎓', 3: '🅰️', 4: '🅱️', 5: '✈️', 6: '🌐', 7: '💻' }
 
 const formatDate = (str) => str ? str.substring(0, 10) : ''
@@ -135,18 +144,24 @@ const loadExamInfo = async () => {
 }
 const loadPosts = async () => {
   try {
-    const res = await getPostList({ moduleId: moduleId.value, page: postPage.value, size: postPageSize })
+    const params = { moduleId: moduleId.value, page: postPage.value, size: postPageSize }
+    if (postKeyword.value.trim()) params.keyword = postKeyword.value.trim()
+    const res = await getPostList(params)
     postList.value = res.data?.records || res.data || []
     postTotal.value = res.data?.total || 0
   } catch (e) {}
 }
 const loadQuestions = async () => {
   try {
-    const res = await getQuestionList({ moduleId: moduleId.value, page: questionPage.value, size: questionPageSize })
+    const params = { moduleId: moduleId.value, page: questionPage.value, size: questionPageSize }
+    if (questionKeyword.value.trim()) params.keyword = questionKeyword.value.trim()
+    const res = await getQuestionList(params)
     questionList.value = res.data?.records || res.data || []
     questionTotal.value = res.data?.total || 0
   } catch (e) {}
 }
+const searchPosts = () => { postPage.value = 1; loadPosts() }
+const searchQuestions = () => { questionPage.value = 1; loadQuestions() }
 
 watch(() => route.params.id, (newId) => {
   moduleId.value = newId
