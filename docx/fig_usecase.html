@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图2-1 系统用例图</title>
+<style>
+  body { margin: 0; background: #fff; font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
+  .container { width: 760px; padding: 20px 30px 30px; box-sizing: border-box; background: #fff; }
+  .boundary {
+    border: 2px solid #444; border-radius: 8px; background: #fafafa;
+    padding: 14px 20px 14px 80px; position: relative; min-height: 340px;
+  }
+  .boundary-label {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    font-size: 13px; font-weight: bold; color: #333;
+  }
+  .columns { display: flex; gap: 16px; margin-top: 24px; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .col-title { font-size: 12px; font-weight: bold; color: #555; text-align: center; margin-bottom: 4px; }
+  .usecase {
+    background: #dbeafe; border: 1.5px solid #93c5fd; border-radius: 50px;
+    text-align: center; font-size: 12px; padding: 7px 10px; color: #1e40af;
+  }
+  .usecase.admin { background: #dcfce7; border-color: #86efac; color: #166534; }
+  .actor { display: flex; flex-direction: column; align-items: center; font-size: 12px; gap: 2px; margin-bottom: 8px; }
+  .actor-icon { width: 32px; height: 32px; }
+  .left-actors { position: absolute; left: 14px; top: 60px; display: flex; flex-direction: column; gap: 56px; }
+  .caption { text-align: center; font-size: 13px; margin-top: 16px; color: #333; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="boundary">
+    <div class="boundary-label">高校学生考证服务系统</div>
+    <!-- 左侧角色 -->
+    <div class="left-actors">
+      <div class="actor">
+        <svg class="actor-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="10" r="8" stroke="#333" stroke-width="2" fill="white"/>
+          <line x1="16" y1="18" x2="16" y2="30" stroke="#333" stroke-width="2"/>
+          <line x1="6" y1="23" x2="26" y2="23" stroke="#333" stroke-width="2"/>
+          <line x1="8" y1="38" x2="16" y2="30" stroke="#333" stroke-width="2"/>
+          <line x1="24" y1="38" x2="16" y2="30" stroke="#333" stroke-width="2"/>
+        </svg>
+        <span>普通用户</span>
+      </div>
+      <div class="actor">
+        <svg class="actor-icon" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="10" r="8" stroke="#2d7d46" stroke-width="2" fill="#dcfce7"/>
+          <line x1="16" y1="18" x2="16" y2="30" stroke="#2d7d46" stroke-width="2"/>
+          <line x1="6" y1="23" x2="26" y2="23" stroke="#2d7d46" stroke-width="2"/>
+          <line x1="8" y1="38" x2="16" y2="30" stroke="#2d7d46" stroke-width="2"/>
+          <line x1="24" y1="38" x2="16" y2="30" stroke="#2d7d46" stroke-width="2"/>
+        </svg>
+        <span>管理员</span>
+      </div>
+    </div>
+    <!-- 用例区域 -->
+    <div class="columns">
+      <div class="col">
+        <div class="col-title">普通用户功能</div>
+        <div class="usecase">注册 / 登录</div>
+        <div class="usecase">查看考试模块</div>
+        <div class="usecase">查看考试信息</div>
+        <div class="usecase">浏览 / 发布帖子</div>
+        <div class="usecase">发布楼层回复</div>
+        <div class="usecase">发布 / 回答问题</div>
+        <div class="usecase">查看公告</div>
+        <div class="usecase">修改个人资料</div>
+      </div>
+      <div class="col">
+        <div class="col-title">管理员功能</div>
+        <div class="usecase admin">用户管理</div>
+        <div class="usecase admin">帖子管理</div>
+        <div class="usecase admin">问答管理</div>
+        <div class="usecase admin">公告管理</div>
+        <div class="usecase admin">模块管理</div>
+        <div class="usecase admin">考试信息维护</div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">图2-1&nbsp;&nbsp;系统用例图</div>
+</div>
+</body>
+</html>

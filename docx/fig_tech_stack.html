@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图1-1 系统技术路线图</title>
+<style>
+  body { margin: 0; background: #fff; font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
+  .container { width: 720px; padding: 20px 30px 30px; box-sizing: border-box; background: #fff; }
+  h3 { text-align: center; font-size: 14px; margin: 0 0 18px; color: #333; }
+  .grid { display: flex; gap: 20px; justify-content: center; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 0; }
+  .col-title { background: #2b6cb0; color: #fff; text-align: center; font-size: 13px; font-weight: bold; padding: 8px 4px; border-radius: 4px 4px 0 0; }
+  .col-body { border: 1px solid #2b6cb0; border-top: none; border-radius: 0 0 4px 4px; padding: 8px 6px; display: flex; flex-direction: column; gap: 7px; }
+  .item { background: #ebf4ff; border: 1px solid #90cdf4; border-radius: 4px; text-align: center; font-size: 12px; padding: 6px 4px; color: #1a365d; }
+  .arrow { text-align: center; font-size: 22px; color: #888; line-height: 1; align-self: center; margin: 0 4px; }
+  .bottom-row { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px; }
+  .bottom-item { background: #f0fff4; border: 1px solid #68d391; border-radius: 4px; font-size: 12px; padding: 8px 18px; color: #22543d; text-align: center; }
+  .caption { text-align: center; font-size: 13px; margin-top: 16px; color: #333; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="grid">
+    <div class="col">
+      <div class="col-title">前端技术</div>
+      <div class="col-body">
+        <div class="item">Vue 3<br><span style="font-size:11px;color:#555">核心框架</span></div>
+        <div class="item">Vue Router<br><span style="font-size:11px;color:#555">路由管理</span></div>
+        <div class="item">Pinia<br><span style="font-size:11px;color:#555">状态管理</span></div>
+        <div class="item">Axios<br><span style="font-size:11px;color:#555">请求拦截</span></div>
+        <div class="item">Element Plus<br><span style="font-size:11px;color:#555">UI组件库</span></div>
+      </div>
+    </div>
+    <div class="arrow">⇄</div>
+    <div class="col">
+      <div class="col-title">后端技术</div>
+      <div class="col-body">
+        <div class="item">Spring Boot 3.2.5<br><span style="font-size:11px;color:#555">应用框架</span></div>
+        <div class="item">MyBatis-Plus<br><span style="font-size:11px;color:#555">ORM框架</span></div>
+        <div class="item">JWT 认证<br><span style="font-size:11px;color:#555">无状态鉴权</span></div>
+        <div class="item">BCrypt 加密<br><span style="font-size:11px;color:#555">密码安全</span></div>
+      </div>
+    </div>
+    <div class="arrow">⇄</div>
+    <div class="col">
+      <div class="col-title">数据存储</div>
+      <div class="col-body">
+        <div class="item">MySQL 8.0<br><span style="font-size:11px;color:#555">关系型数据库</span></div>
+        <div class="item">utf8mb4<br><span style="font-size:11px;color:#555">字符集</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <div class="bottom-item">开发工具<br><span style="font-size:11px;color:#555">IDEA / VS Code / Vite</span></div>
+    <div class="bottom-item">运行端口<br><span style="font-size:11px;color:#555">前端:5173 / 后端:8080</span></div>
+    <div class="bottom-item">部署方式<br><span style="font-size:11px;color:#555">本地开发原型系统</span></div>
+  </div>
+  <div class="caption">图1-1&nbsp;&nbsp;系统技术路线图</div>
+</div>
+</body>
+</html>

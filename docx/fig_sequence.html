@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图4-1 用户登录时序图</title>
+<style>
+  body { margin: 0; background: #fff; font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
+  .container { width: 720px; padding: 20px 20px 30px; box-sizing: border-box; background: #fff; }
+  svg { display: block; margin: 0 auto; }
+  .caption { text-align: center; font-size: 13px; margin-top: 12px; color: #333; }
+</style>
+</head>
+<body>
+<div class="container">
+<svg width="700" height="400" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg"
+     style="font-family:'Microsoft YaHei',sans-serif;">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arr-back" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto">
+      <path d="M8,0 L8,6 L0,3 z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Actor columns x positions: 60, 180, 300, 430, 580, 670 -->
+  <!-- Actors: 浏览器/前端, JwtInterceptor, UserController, UserService, 数据库 -->
+  <!-- x: 60, 190, 330, 470, 620 -->
+
+  <!-- Header boxes -->
+  <rect x="5" y="10" width="110" height="36" rx="5" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="60" y="25" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">浏览器</text>
+  <text x="60" y="40" text-anchor="middle" font-size="10" fill="#3b82f6">/ 前端</text>
+
+  <rect x="130" y="10" width="120" height="36" rx="5" fill="#f3e8ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="190" y="25" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b21b6">JwtInterceptor</text>
+  <text x="190" y="40" text-anchor="middle" font-size="10" fill="#7c3aed">（JWT拦截器）</text>
+
+  <rect x="270" y="10" width="120" height="36" rx="5" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+  <text x="330" y="25" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">UserController</text>
+  <text x="330" y="40" text-anchor="middle" font-size="10" fill="#22c55e">（控制器层）</text>
+
+  <rect x="408" y="10" width="120" height="36" rx="5" fill="#fef9c3" stroke="#fde047" stroke-width="1.5"/>
+  <text x="468" y="25" text-anchor="middle" font-size="11" font-weight="bold" fill="#713f12">UserService</text>
+  <text x="468" y="40" text-anchor="middle" font-size="10" fill="#a16207">（业务逻辑层）</text>
+
+  <rect x="556" y="10" width="120" height="36" rx="5" fill="#fce7f3" stroke="#f9a8d4" stroke-width="1.5"/>
+  <text x="616" y="25" text-anchor="middle" font-size="11" font-weight="bold" fill="#831843">数据库</text>
+  <text x="616" y="40" text-anchor="middle" font-size="10" fill="#db2777">MySQL 8.0</text>
+
+  <!-- Lifelines (dashed vertical) -->
+  <line x1="60" y1="46" x2="60" y2="390" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="190" y1="46" x2="190" y2="390" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="330" y1="46" x2="330" y2="390" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="468" y1="46" x2="468" y2="390" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="616" y1="46" x2="616" y2="390" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Messages -->
+  <!-- 1. 浏览器 → 拦截器: POST /api/user/login -->
+  <line x1="60" y1="90" x2="183" y2="90" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="120" y="84" text-anchor="middle" font-size="10" fill="#333">①  POST /api/user/login</text>
+  <text x="120" y="98" text-anchor="middle" font-size="10" fill="#777">{username, password}</text>
+
+  <!-- 2. 拦截器 → 控制器: 放行（/login 不需验证）-->
+  <line x1="190" y1="125" x2="323" y2="125" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="255" y="119" text-anchor="middle" font-size="10" fill="#333">② 放行（login接口无需token）</text>
+
+  <!-- 3. 控制器 → 业务层: login(dto)-->
+  <line x1="330" y1="158" x2="461" y2="158" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="394" y="152" text-anchor="middle" font-size="10" fill="#333">③ login(LoginDTO)</text>
+
+  <!-- 4. 业务层 → 数据库: SELECT user by username-->
+  <line x1="468" y1="191" x2="609" y2="191" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="537" y="185" text-anchor="middle" font-size="10" fill="#333">④ SELECT * WHERE username=?</text>
+
+  <!-- 5. 数据库 → 业务层: 返回User记录-->
+  <line x1="609" y1="220" x2="475" y2="220" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="537" y="214" text-anchor="middle" font-size="10" fill="#666">⑤ 返回 User 记录</text>
+
+  <!-- 6. 业务层内部: BCrypt校验 + 状态检查 + 生成JWT -->
+  <rect x="410" y="230" width="116" height="36" rx="4" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="468" y="244" text-anchor="middle" font-size="10" fill="#713f12">⑥ BCrypt 校验密码</text>
+  <text x="468" y="258" text-anchor="middle" font-size="10" fill="#713f12">生成 JWT Token</text>
+
+  <!-- 7. 业务层 → 控制器: 返回LoginVO-->
+  <line x1="461" y1="280" x2="337" y2="280" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="394" y="274" text-anchor="middle" font-size="10" fill="#666">⑦ 返回 LoginVO {token, userInfo}</text>
+
+  <!-- 8. 控制器 → 浏览器: 返回Result.ok(LoginVO)-->
+  <line x1="323" y1="315" x2="67" y2="315" stroke="#555" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="195" y="309" text-anchor="middle" font-size="10" fill="#666">⑧ Result.ok(LoginVO)</text>
+
+  <!-- 9. 浏览器内部: 存储token -->
+  <rect x="5" y="325" width="110" height="36" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="60" y="339" text-anchor="middle" font-size="10" fill="#1e40af">⑨ 存储 token 至</text>
+  <text x="60" y="353" text-anchor="middle" font-size="10" fill="#1e40af">localStorage</text>
+</svg>
+  <div class="caption">图4-1&nbsp;&nbsp;用户登录时序图</div>
+</div>
+</body>
+</html>
