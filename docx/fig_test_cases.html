@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>图5-5 典型测试用例执行结果汇总</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: "Microsoft YaHei", "微软雅黑", sans-serif; font-size: 13px; color: #222; }
+  .container { width: 820px; padding: 24px 24px 36px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th {
+    background: #2c3e50;
+    color: #fff;
+    padding: 9px 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #2c3e50;
+  }
+  td {
+    padding: 8px 10px;
+    border: 1px solid #bdc3c7;
+    vertical-align: middle;
+    line-height: 1.6;
+  }
+  tr:nth-child(even) td { background: #f4f6f7; }
+  tr:nth-child(odd) td { background: #fff; }
+  .pass {
+    text-align: center;
+    font-weight: bold;
+    color: #27ae60;
+  }
+  .num-col { text-align: center; width: 52px; }
+  .scene-col { width: 158px; }
+  .input-col { width: 180px; }
+  .expect-col { width: 160px; }
+  .actual-col { width: 152px; }
+  .result-col { width: 60px; }
+  .caption { text-align: center; font-size: 13px; margin-top: 14px; color: #333; }
+</style>
+</head>
+<body>
+<div class="container">
+  <table>
+    <colgroup>
+      <col class="num-col"/>
+      <col class="scene-col"/>
+      <col class="input-col"/>
+      <col class="expect-col"/>
+      <col class="actual-col"/>
+      <col class="result-col"/>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>用例编号</th>
+        <th>测试场景</th>
+        <th>测试操作</th>
+        <th>预期结果</th>
+        <th>实际结果</th>
+        <th>通过</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="num-col">TC-01</td>
+        <td class="scene-col">普通用户注册后在考研模块发帖</td>
+        <td class="input-col">注册新账号 → 登录 → 进考研模块 → 填写标题内容 → 提交发帖</td>
+        <td class="expect-col">帖子写入数据库，列表出现新记录，前端提示成功</td>
+        <td class="actual-col">帖子成功创建，列表即时刷新显示，author由JWT解析无误</td>
+        <td class="pass">✓</td>
+      </tr>
+      <tr>
+        <td class="num-col">TC-02</td>
+        <td class="scene-col">用户A提问，用户B提交回答</td>
+        <td class="input-col">用户A在四级模块发问题 → 用户B登录进详情页 → 提交回答</td>
+        <td class="expect-col">回答数增加，回答列表按时间展示，不影响其他问题</td>
+        <td class="actual-col">回答成功写入，问题详情页列表正常更新，数据隔离正确</td>
+        <td class="pass">✓</td>
+      </tr>
+      <tr>
+        <td class="num-col">TC-03</td>
+        <td class="scene-col">未登录用户尝试发帖</td>
+        <td class="input-col">游客访问发帖入口或直接向发帖接口发请求（无Token）</td>
+        <td class="expect-col">前端路由跳转至登录页；后端直接返回 401</td>
+        <td class="actual-col">路由守卫正确拦截，直接调接口收到 401，响应格式统一</td>
+        <td class="pass">✓</td>
+      </tr>
+      <tr>
+        <td class="num-col">TC-04</td>
+        <td class="scene-col">普通用户访问管理员后台</td>
+        <td class="input-col">普通用户携带有效Token访问 /api/admin/user 接口及后台页面</td>
+        <td class="expect-col">接口返回 403；前端路由守卫阻止进入后台页面</td>
+        <td class="actual-col">AdminInterceptor 返回 403，前端路由直接跳回首页</td>
+        <td class="pass">✓</td>
+      </tr>
+      <tr>
+        <td class="num-col">TC-05</td>
+        <td class="scene-col">管理员发布公告，前台同步可见</td>
+        <td class="input-col">管理员在后台新增公告内容 → 前台首页公告轮播区刷新</td>
+        <td class="expect-col">公告立即显示在首页，无需重启服务</td>
+        <td class="actual-col">写入数据库后前端下次请求即返回最新数据，无缓存问题</td>
+        <td class="pass">✓</td>
+      </tr>
+      <tr>
+        <td class="num-col">TC-06</td>
+        <td class="scene-col">删除问题时关联回答级联清除</td>
+        <td class="input-col">提问人在问题收到多个回答后删除该问题</td>
+        <td class="expect-col">问题及其所有关联回答均从数据库删除，无孤立记录</td>
+        <td class="actual-col">问题与回答同步删除，问题详情接口返回404，数据一致</td>
+        <td class="pass">✓</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="caption">图5-5&nbsp;&nbsp;典型测试用例执行结果汇总</div>
+</div>
+</body>
+</html>

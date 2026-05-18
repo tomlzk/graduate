@@ -34,8 +34,8 @@ public class PostController {
     @PostMapping
     public Result<?> create(HttpServletRequest request, @Valid @RequestBody PostDTO dto) {
         Long userId = (Long) request.getAttribute("userId");
-        postService.create(userId, dto);
-        return Result.success("发帖成功", null);
+        Long postId = postService.create(userId, dto);
+        return Result.success("发帖成功", postId);
     }
 
     @PutMapping("/{id}")

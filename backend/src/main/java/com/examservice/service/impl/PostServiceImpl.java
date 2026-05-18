@@ -62,7 +62,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void create(Long userId, PostDTO dto) {
+    public Long create(Long userId, PostDTO dto) {
         Post post = new Post();
         post.setUserId(userId);
         post.setModuleId(dto.getModuleId());
@@ -70,6 +70,7 @@ public class PostServiceImpl implements PostService {
         post.setContent(dto.getContent());
         post.setViewCount(0);
         postMapper.insert(post);
+        return post.getId();
     }
 
     @Override

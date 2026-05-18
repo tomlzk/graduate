@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>ER图 - Chen表示法</title>
+<style>
+  body { margin: 0; background: #fff; font-family: "SimSun", "宋体", serif; }
+  svg text { font-size: 12px; }
+</style>
+</head>
+<body>
+<svg id="er" width="100%" viewBox="0 0 1600 1220" xmlns="http://www.w3.org/2000/svg" style="max-width:1600px;display:block;margin:auto;">
+<defs>
+  <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#333"/>
+  </marker>
+</defs>
+
+<!-- ========== 样式定义 ========== -->
+<style>
+  .entity rect { fill: #fff; stroke: #000; stroke-width: 2; }
+  .entity text { font-weight: bold; font-size: 13px; }
+  .attr ellipse { fill: #fff; stroke: #000; stroke-width: 1.5; }
+  .attr text { font-size: 11px; }
+  .rel polygon { fill: #fff; stroke: #000; stroke-width: 1.5; }
+  .rel text { font-size: 12px; font-weight: bold; }
+  .line { stroke: #333; stroke-width: 1.5; fill: none; }
+  .card { font-size: 12px; font-weight: bold; fill: #c00; }
+</style>
+
+<!-- 整体下移80px -->
+<g transform="translate(0,80)">
+<!-- ================================================================
+     实体位置规划：
+     用户(150,550)  订单(480,350)  订单明细(780,100)  员工(820,400)
+     店铺(1100,400) 意见反馈(350,700) 购物车(200,900)
+     咖啡分类(720,700) 咖啡(960,700)
+================================================================ -->
+
+<!-- ============ 连接线（先画，让实体覆盖端点） ============ -->
+
+<!-- 用户 --下订单-- 订单  1:N -->
+<line class="line" x1="220" y1="550" x2="400" y2="390"/>
+<text class="card" x="290" y="455">1</text>
+<text class="card" x="375" y="400">N</text>
+
+<!-- 订单 --包含-- 订单明细  1:N -->
+<line class="line" x1="560" y1="330" x2="680" y2="175"/>
+<text class="card" x="593" y="290">1</text>
+<text class="card" x="663" y="205">N</text>
+
+<!-- 员工 --处理订单-- 订单  1:N -->
+<line class="line" x1="760" y1="400" x2="590" y2="380"/>
+<text class="card" x="740" y="393">1</text>
+<text class="card" x="613" y="375">N</text>
+
+<!-- 员工 --管理店铺-- 店铺  1:1 -->
+<line class="line" x1="930" y1="410" x2="1040" y2="410"/>
+<text class="card" x="943" y="405">1</text>
+<text class="card" x="1020" y="405">1</text>
+
+<!-- 员工 --处理反馈-- 意见反馈  1:N -->
+<line class="line" x1="820" y1="460" x2="490" y2="720"/>
+<text class="card" x="790" y="510">1</text>
+<text class="card" x="510" y="700">N</text>
+
+<!-- 用户 --提交反馈-- 意见反馈  1:N -->
+<line class="line" x1="200" y1="580" x2="310" y2="720"/>
+<text class="card" x="194" y="620">1</text>
+<text class="card" x="295" y="718">N</text>
+
+<!-- 用户 --添加购物车-- 购物车  1:N -->
+<line class="line" x1="170" y1="590" x2="200" y2="840"/>
+<text class="card" x="175" y="650">1</text>
+<text class="card" x="175" y="835">N</text>
+
+<!-- 员工 --管理-- 咖啡分类  1:N -->
+<line class="line" x1="855" y1="460" x2="780" y2="640"/>
+<text class="card" x="850" y="500">1</text>
+<text class="card" x="786" y="638">N</text>
+
+<!-- 员工 --管理-- 咖啡  1:N -->
+<line class="line" x1="870" y1="460" x2="960" y2="640"/>
+<text class="card" x="888" y="510">1</text>
+<text class="card" x="955" y="638">N</text>
+
+<!-- 咖啡分类 --分类-- 咖啡  1:N（咖啡.分类编号 FK） -->
+<line class="line" x1="830" y1="700" x2="900" y2="700"/>
+<text class="card" x="835" y="694">1</text>
+<text class="card" x="883" y="694">N</text>
+
+
+<!-- ============ 关系菱形 ============ -->
+
+<!-- 下订单 菱形 中心(330,480) -->
+<g class="rel">
+  <polygon points="330,455 380,480 330,505 280,480" />
+  <text x="330" y="484" text-anchor="middle">下订单</text>
+</g>
+
+<!-- 包含 菱形 中心(630,245) -->
+<g class="rel">
+  <polygon points="630,220 685,245 630,270 575,245" />
+  <text x="630" y="249" text-anchor="middle">包含</text>
+</g>
+
+<!-- 处理订单 菱形 中心(680,380) -->
+<g class="rel">
+  <polygon points="680,355 735,380 680,405 625,380" />
+  <text x="680" y="384" text-anchor="middle">处理订单</text>
+</g>
+
+<!-- 管理店铺 菱形 中心(990,410) -->
+<g class="rel">
+  <polygon points="990,385 1045,410 990,435 935,410" />
+  <text x="990" y="414" text-anchor="middle">管理店铺</text>
+</g>
+
+<!-- 提交反馈 菱形 中心(240,660) -->
+<g class="rel">
+  <polygon points="240,635 295,660 240,685 185,660" />
+  <text x="240" y="664" text-anchor="middle">提交反馈</text>
+</g>
+
+<!-- 处理反馈 菱形 中心(640,600) -->
+<g class="rel">
+  <polygon points="640,575 695,600 640,625 585,600" />
+  <text x="640" y="604" text-anchor="middle">处理反馈</text>
+</g>
+
+<!-- 添加购物车 菱形 中心(160,730) -->
+<g class="rel">
+  <polygon points="160,705 225,730 160,755 95,730" />
+  <text x="160" y="734" text-anchor="middle">添加购物车</text>
+</g>
+
+<!-- 管理(咖啡分类) 菱形 中心(810,555) -->
+<g class="rel">
+  <polygon points="810,530 865,555 810,580 755,555" />
+  <text x="810" y="559" text-anchor="middle">管理</text>
+</g>
+
+<!-- 管理(咖啡) 菱形 中心(920,555) -->
+<g class="rel">
+  <polygon points="920,530 975,555 920,580 865,555" />
+  <text x="920" y="559" text-anchor="middle">管理</text>
+</g>
+
+<!-- 分类 菱形 中心(865,700) -->
+<g class="rel">
+  <polygon points="865,675 900,700 865,725 830,700" />
+  <text x="865" y="704" text-anchor="middle">分类</text>
+</g>
+
+<!-- 关系到实体的连接线补充（菱形到实体） -->
+<!-- 下订单 -> 用户 -->
+<line class="line" x1="280" y1="480" x2="220" y2="555"/>
+<!-- 下订单 -> 订单 -->
+<line class="line" x1="380" y1="480" x2="450" y2="380"/>
+<!-- 包含 -> 订单 -->
+<line class="line" x1="575" y1="245" x2="510" y2="320"/>
+<!-- 包含 -> 订单明细 -->
+<line class="line" x1="685" y1="245" x2="730" y2="195"/>
+<!-- 处理订单 -> 员工 -->
+<line class="line" x1="735" y1="380" x2="790" y2="390"/>
+<!-- 处理订单 -> 订单 -->
+<line class="line" x1="625" y1="380" x2="560" y2="370"/>
+<!-- 管理店铺 -> 员工 -->
+<line class="line" x1="935" y1="410" x2="930" y2="410"/>
+<!-- 管理店铺 -> 店铺 -->
+<line class="line" x1="1045" y1="410" x2="1070" y2="410"/>
+<!-- 提交反馈 -> 用户 -->
+<line class="line" x1="185" y1="660" x2="190" y2="590"/>
+<!-- 提交反馈 -> 意见反馈 -->
+<line class="line" x1="295" y1="660" x2="330" y2="700"/>
+<!-- 处理反馈 -> 员工 -->
+<line class="line" x1="695" y1="600" x2="840" y2="470"/>
+<!-- 处理反馈 -> 意见反馈 -->
+<line class="line" x1="585" y1="600" x2="460" y2="720"/>
+<!-- 添加购物车 -> 用户 -->
+<line class="line" x1="95" y1="730" x2="155" y2="595"/>
+<!-- 添加购物车 -> 购物车 -->
+<line class="line" x1="160" y1="755" x2="185" y2="850"/>
+<!-- 管理(咖啡分类) -> 员工 -->
+<line class="line" x1="810" y1="530" x2="845" y2="455"/>
+<!-- 管理(咖啡分类) -> 咖啡分类 -->
+<line class="line" x1="810" y1="580" x2="780" y2="650"/>
+<!-- 管理(咖啡) -> 员工 -->
+<line class="line" x1="920" y1="530" x2="880" y2="455"/>
+<!-- 管理(咖啡) -> 咖啡 -->
+<line class="line" x1="920" y1="580" x2="960" y2="650"/>
+<!-- 分类 -> 咖啡分类 -->
+<line class="line" x1="830" y1="700" x2="820" y2="700"/>
+<!-- 分类 -> 咖啡 -->
+<line class="line" x1="900" y1="700" x2="910" y2="700"/>
+
+
+<!-- ============ 实体（矩形） ============ -->
+
+<!-- 用户 -->
+<g class="entity">
+  <rect x="120" y="535" width="90" height="30" rx="2"/>
+  <text x="165" y="555" text-anchor="middle">用户</text>
+</g>
+
+<!-- 订单 -->
+<g class="entity">
+  <rect x="450" y="340" width="90" height="30" rx="2"/>
+  <text x="495" y="360" text-anchor="middle">订单</text>
+</g>
+
+<!-- 订单明细 -->
+<g class="entity">
+  <rect x="710" y="160" width="90" height="30" rx="2"/>
+  <text x="755" y="180" text-anchor="middle">订单明细</text>
+</g>
+
+<!-- 员工 -->
+<g class="entity">
+  <rect x="790" y="400" width="90" height="30" rx="2"/>
+  <text x="835" y="420" text-anchor="middle">员工</text>
+</g>
+
+<!-- 店铺 -->
+<g class="entity">
+  <rect x="1070" y="395" width="90" height="30" rx="2"/>
+  <text x="1115" y="415" text-anchor="middle">店铺</text>
+</g>
+
+<!-- 意见反馈 -->
+<g class="entity">
+  <rect x="330" y="700" width="90" height="30" rx="2"/>
+  <text x="375" y="720" text-anchor="middle">意见反馈</text>
+</g>
+
+<!-- 购物车 -->
+<g class="entity">
+  <rect x="150" y="850" width="90" height="30" rx="2"/>
+  <text x="195" y="870" text-anchor="middle">购物车</text>
+</g>
+
+<!-- 咖啡分类 -->
+<g class="entity">
+  <rect x="730" y="650" width="90" height="30" rx="2"/>
+  <text x="775" y="670" text-anchor="middle">咖啡分类</text>
+</g>
+
+<!-- 咖啡 -->
+<g class="entity">
+  <rect x="915" y="650" width="80" height="30" rx="2"/>
+  <text x="955" y="670" text-anchor="middle">咖啡</text>
+</g>
+
+
+<!-- ============ 属性（椭圆） ============ -->
+
+<!-- 用户属性 -->
+<g class="attr"><ellipse cx="60" cy="480" rx="38" ry="16"/><text x="60" y="484" text-anchor="middle">用户编号</text></g>
+<line class="line" x1="95" y1="487" x2="140" y2="540"/>
+<g class="attr"><ellipse cx="55" cy="530" rx="38" ry="16"/><text x="55" y="534" text-anchor="middle">个人信息</text></g>
+<line class="line" x1="93" y1="530" x2="120" y2="545"/>
+<g class="attr"><ellipse cx="60" cy="580" rx="30" ry="16"/><text x="60" y="584" text-anchor="middle">头像</text></g>
+<line class="line" x1="90" y1="575" x2="120" y2="562"/>
+<g class="attr"><ellipse cx="55" cy="625" rx="38" ry="16"/><text x="55" y="629" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="93" y1="620" x2="125" y2="565"/>
+
+<!-- 订单属性 -->
+<g class="attr"><ellipse cx="380" cy="290" rx="38" ry="16"/><text x="380" y="294" text-anchor="middle">订单编号</text></g>
+<line class="line" x1="415" y1="296" x2="460" y2="342"/>
+<g class="attr"><ellipse cx="420" cy="270" rx="30" ry="16"/><text x="420" y="274" text-anchor="middle">订单号</text></g>
+<line class="line" x1="438" y1="282" x2="462" y2="340"/>
+<g class="attr"><ellipse cx="460" cy="250" rx="30" ry="16"/><text x="460" y="254" text-anchor="middle">状态</text></g>
+<line class="line" x1="468" y1="266" x2="477" y2="340"/>
+<g class="attr"><ellipse cx="530" cy="245" rx="38" ry="16"/><text x="530" y="249" text-anchor="middle">接单员工</text></g>
+<line class="line" x1="530" y1="261" x2="505" y2="340"/>
+<g class="attr"><ellipse cx="580" cy="255" rx="38" ry="16"/><text x="580" y="259" text-anchor="middle">用户编号</text></g>
+<line class="line" x1="570" y1="270" x2="530" y2="340"/>
+<g class="attr"><ellipse cx="600" cy="295" rx="38" ry="16"/><text x="600" y="299" text-anchor="middle">订单时间</text></g>
+<line class="line" x1="577" y1="299" x2="545" y2="342"/>
+<g class="attr"><ellipse cx="595" cy="330" rx="30" ry="16"/><text x="595" y="334" text-anchor="middle">金额</text></g>
+<line class="line" x1="565" y1="337" x2="542" y2="352"/>
+<g class="attr"><ellipse cx="600" cy="365" rx="30" ry="16"/><text x="600" y="369" text-anchor="middle">备注</text></g>
+<line class="line" x1="570" y1="363" x2="540" y2="360"/>
+
+<!-- 订单明细属性 -->
+<g class="attr"><ellipse cx="700" cy="100" rx="38" ry="16"/><text x="700" y="104" text-anchor="middle">明细编号</text></g>
+<line class="line" x1="722" y1="112" x2="745" y2="162"/>
+<g class="attr"><ellipse cx="760" cy="90" rx="38" ry="16"/><text x="760" y="94" text-anchor="middle">订单编号</text></g>
+<line class="line" x1="762" y1="106" x2="760" y2="162"/>
+<g class="attr"><ellipse cx="820" cy="100" rx="38" ry="16"/><text x="820" y="104" text-anchor="middle">商品编号</text></g>
+<line class="line" x1="806" y1="113" x2="782" y2="162"/>
+<g class="attr"><ellipse cx="870" cy="120" rx="38" ry="16"/><text x="870" y="124" text-anchor="middle">商品信息</text></g>
+<line class="line" x1="840" y1="127" x2="800" y2="165"/>
+<g class="attr"><ellipse cx="880" cy="155" rx="25" ry="16"/><text x="880" y="159" text-anchor="middle">单价</text></g>
+<line class="line" x1="855" y1="158" x2="802" y2="172"/>
+<g class="attr"><ellipse cx="875" cy="185" rx="25" ry="16"/><text x="875" y="189" text-anchor="middle">数量</text></g>
+<line class="line" x1="850" y1="183" x2="800" y2="180"/>
+<g class="attr"><ellipse cx="855" cy="215" rx="38" ry="16"/><text x="855" y="219" text-anchor="middle">小计金额</text></g>
+<line class="line" x1="820" y1="215" x2="800" y2="193"/>
+<g class="attr"><ellipse cx="840" cy="245" rx="38" ry="16"/><text x="840" y="249" text-anchor="middle">口味信息</text></g>
+<line class="line" x1="805" y1="240" x2="800" y2="205"/>
+
+<!-- 员工属性 -->
+<g class="attr"><ellipse cx="1010" cy="365" rx="38" ry="16"/><text x="1010" y="369" text-anchor="middle">员工编号</text></g>
+<line class="line" x1="975" y1="372" x2="880" y2="406"/>
+<g class="attr"><ellipse cx="1020" cy="395" rx="30" ry="16"/><text x="1020" y="399" text-anchor="middle">用户名</text></g>
+<line class="line" x1="990" y1="398" x2="880" y2="412"/>
+<g class="attr"><ellipse cx="1020" cy="425" rx="25" ry="16"/><text x="1020" y="429" text-anchor="middle">密码</text></g>
+<line class="line" x1="995" y1="425" x2="880" y2="420"/>
+<g class="attr"><ellipse cx="1015" cy="455" rx="38" ry="16"/><text x="1015" y="459" text-anchor="middle">个人信息</text></g>
+<line class="line" x1="980" y1="452" x2="880" y2="432"/>
+<g class="attr"><ellipse cx="1000" cy="480" rx="38" ry="16"/><text x="1000" y="484" text-anchor="middle">身份证号</text></g>
+<line class="line" x1="967" y1="474" x2="870" y2="440"/>
+<g class="attr"><ellipse cx="975" cy="505" rx="25" ry="16"/><text x="975" y="509" text-anchor="middle">状态</text></g>
+<line class="line" x1="949" y1="498" x2="860" y2="443"/>
+<g class="attr"><ellipse cx="940" cy="520" rx="25" ry="16"/><text x="940" y="524" text-anchor="middle">角色</text></g>
+<line class="line" x1="923" y1="510" x2="850" y2="445"/>
+<g class="attr"><ellipse cx="900" cy="530" rx="38" ry="16"/><text x="900" y="534" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="893" y1="514" x2="848" y2="440"/>
+<g class="attr"><ellipse cx="860" cy="538" rx="38" ry="16"/><text x="860" y="542" text-anchor="middle">更新时间</text></g>
+<line class="line" x1="860" y1="522" x2="850" y2="430"/>
+
+<!-- 店铺属性 -->
+<g class="attr"><ellipse cx="1200" cy="375" rx="38" ry="16"/><text x="1200" y="379" text-anchor="middle">店铺编号</text></g>
+<line class="line" x1="1165" y1="382" x2="1160" y2="397"/>
+<g class="attr"><ellipse cx="1210" cy="415" rx="38" ry="16"/><text x="1210" y="419" text-anchor="middle">营业状态</text></g>
+<line class="line" x1="1175" y1="415" x2="1160" y2="415"/>
+<g class="attr"><ellipse cx="1200" cy="455" rx="38" ry="16"/><text x="1200" y="459" text-anchor="middle">更新时间</text></g>
+<line class="line" x1="1165" y1="448" x2="1160" y2="430"/>
+
+<!-- 意见反馈属性 -->
+<g class="attr"><ellipse cx="240" cy="755" rx="38" ry="16"/><text x="240" y="759" text-anchor="middle">意见编号</text></g>
+<line class="line" x1="274" y1="758" x2="340" y2="724"/>
+<g class="attr"><ellipse cx="260" cy="790" rx="38" ry="16"/><text x="260" y="794" text-anchor="middle">用户编号</text></g>
+<line class="line" x1="294" y1="786" x2="345" y2="728"/>
+<g class="attr"><ellipse cx="300" cy="820" rx="38" ry="16"/><text x="300" y="824" text-anchor="middle">订单编号</text></g>
+<line class="line" x1="330" y1="812" x2="360" y2="730"/>
+<g class="attr"><ellipse cx="360" cy="840" rx="25" ry="16"/><text x="360" y="844" text-anchor="middle">类型</text></g>
+<line class="line" x1="374" y1="825" x2="380" y2="730"/>
+<g class="attr"><ellipse cx="420" cy="845" rx="25" ry="16"/><text x="420" y="849" text-anchor="middle">标题</text></g>
+<line class="line" x1="413" y1="829" x2="398" y2="730"/>
+<g class="attr"><ellipse cx="475" cy="840" rx="38" ry="16"/><text x="475" y="844" text-anchor="middle">反馈内容</text></g>
+<line class="line" x1="454" y1="826" x2="420" y2="730"/>
+<g class="attr"><ellipse cx="510" cy="818" rx="25" ry="16"/><text x="510" y="822" text-anchor="middle">图片</text></g>
+<line class="line" x1="487" y1="808" x2="432" y2="726"/>
+<g class="attr"><ellipse cx="528" cy="790" rx="38" ry="16"/><text x="528" y="794" text-anchor="middle">联系方式</text></g>
+<line class="line" x1="505" y1="783" x2="438" y2="725"/>
+<g class="attr"><ellipse cx="528" cy="755" rx="25" ry="16"/><text x="528" y="759" text-anchor="middle">状态</text></g>
+<line class="line" x1="504" y1="757" x2="440" y2="722"/>
+<g class="attr"><ellipse cx="515" cy="725" rx="38" ry="16"/><text x="515" y="729" text-anchor="middle">回复内容</text></g>
+<line class="line" x1="480" y1="723" x2="420" y2="719"/>
+<g class="attr"><ellipse cx="500" cy="700" rx="38" ry="16"/><text x="500" y="704" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="465" y1="703" x2="420" y2="712"/>
+
+<!-- 购物车属性 -->
+<g class="attr"><ellipse cx="55" cy="860" rx="25" ry="16"/><text x="55" y="864" text-anchor="middle">编号</text></g>
+<line class="line" x1="80" y1="860" x2="150" y2="862"/>
+<g class="attr"><ellipse cx="55" cy="895" rx="38" ry="16"/><text x="55" y="899" text-anchor="middle">用户编号</text></g>
+<line class="line" x1="93" y1="889" x2="155" y2="873"/>
+<g class="attr"><ellipse cx="70" cy="930" rx="38" ry="16"/><text x="70" y="934" text-anchor="middle">商品编号</text></g>
+<line class="line" x1="107" y1="922" x2="160" y2="880"/>
+<g class="attr"><ellipse cx="110" cy="960" rx="38" ry="16"/><text x="110" y="964" text-anchor="middle">商品信息</text></g>
+<line class="line" x1="140" y1="950" x2="175" y2="880"/>
+<g class="attr"><ellipse cx="170" cy="980" rx="25" ry="16"/><text x="170" y="984" text-anchor="middle">数量</text></g>
+<line class="line" x1="185" y1="965" x2="192" y2="880"/>
+<g class="attr"><ellipse cx="235" cy="980" rx="25" ry="16"/><text x="235" y="984" text-anchor="middle">金额</text></g>
+<line class="line" x1="225" y1="964" x2="208" y2="880"/>
+<g class="attr"><ellipse cx="285" cy="965" rx="38" ry="16"/><text x="285" y="969" text-anchor="middle">口味信息</text></g>
+<line class="line" x1="262" y1="952" x2="225" y2="878"/>
+<g class="attr"><ellipse cx="315" cy="940" rx="38" ry="16"/><text x="315" y="944" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="284" y1="933" x2="240" y2="875"/>
+
+<!-- 咖啡分类属性 -->
+<g class="attr"><ellipse cx="640" cy="650" rx="38" ry="16"/><text x="640" y="654" text-anchor="middle">分类编号</text></g>
+<line class="line" x1="675" y1="654" x2="730" y2="660"/>
+<g class="attr"><ellipse cx="645" cy="685" rx="38" ry="16"/><text x="645" y="689" text-anchor="middle">分类名称</text></g>
+<line class="line" x1="683" y1="681" x2="735" y2="668"/>
+<g class="attr"><ellipse cx="655" cy="718" rx="25" ry="16"/><text x="655" y="722" text-anchor="middle">排序</text></g>
+<line class="line" x1="680" y1="714" x2="733" y2="676"/>
+<g class="attr"><ellipse cx="670" cy="748" rx="25" ry="16"/><text x="670" y="752" text-anchor="middle">状态</text></g>
+<line class="line" x1="692" y1="737" x2="741" y2="685"/>
+<g class="attr"><ellipse cx="695" cy="775" rx="38" ry="16"/><text x="695" y="779" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="706" y1="760" x2="752" y2="693"/>
+<g class="attr"><ellipse cx="720" cy="800" rx="38" ry="16"/><text x="720" y="804" text-anchor="middle">更新时间</text></g>
+<line class="line" x1="720" y1="784" x2="762" y2="697"/>
+
+<!-- 咖啡属性 -->
+<g class="attr"><ellipse cx="1060" cy="650" rx="38" ry="16"/><text x="1060" y="654" text-anchor="middle">商品编号</text></g>
+<line class="line" x1="1025" y1="654" x2="995" y2="660"/>
+<g class="attr"><ellipse cx="1075" cy="680" rx="38" ry="16"/><text x="1075" y="684" text-anchor="middle">商品名称</text></g>
+<line class="line" x1="1042" y1="678" x2="995" y2="668"/>
+<g class="attr"><ellipse cx="1075" cy="713" rx="38" ry="16"/><text x="1075" y="717" text-anchor="middle">分类编号</text></g>
+<line class="line" x1="1042" y1="708" x2="997" y2="678"/>
+<g class="attr"><ellipse cx="1065" cy="745" rx="25" ry="16"/><text x="1065" y="749" text-anchor="middle">价格</text></g>
+<line class="line" x1="1040" y1="737" x2="997" y2="685"/>
+<g class="attr"><ellipse cx="1048" cy="773" rx="25" ry="16"/><text x="1048" y="777" text-anchor="middle">图片</text></g>
+<line class="line" x1="1028" y1="760" x2="997" y2="690"/>
+<g class="attr"><ellipse cx="1020" cy="798" rx="25" ry="16"/><text x="1020" y="802" text-anchor="middle">描述</text></g>
+<line class="line" x1="1006" y1="783" x2="990" y2="695"/>
+<g class="attr"><ellipse cx="985" cy="810" rx="25" ry="16"/><text x="985" y="814" text-anchor="middle">状态</text></g>
+<line class="line" x1="978" y1="795" x2="965" y2="695"/>
+<g class="attr"><ellipse cx="947" cy="808" rx="38" ry="16"/><text x="947" y="812" text-anchor="middle">创建时间</text></g>
+<line class="line" x1="950" y1="792" x2="952" y2="695"/>
+<g class="attr"><ellipse cx="910" cy="795" rx="38" ry="16"/><text x="910" y="799" text-anchor="middle">更新时间</text></g>
+<line class="line" x1="920" y1="779" x2="940" y2="693"/>
+
+</g>
+</svg>
+</body>
+</html>

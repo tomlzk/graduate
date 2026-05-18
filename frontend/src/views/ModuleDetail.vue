@@ -139,7 +139,7 @@ const loadModule = async () => {
 const loadExamInfo = async () => {
   try {
     const res = await getExamInfoList(moduleId.value)
-    examInfoList.value = res.data || []
+    examInfoList.value = res.data?.records || res.data || []
   } catch (e) {}
 }
 const loadPosts = async () => {

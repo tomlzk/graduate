@@ -81,7 +81,7 @@ const handleSubmit = async () => {
     } else {
       const res = await createPost({ moduleId: moduleId.value, title: form.title, content: form.content })
       ElMessage.success('发表成功')
-      router.push(`/post/${res.data?.id || res.data}`)
+      router.push(`/post/${res.data}`)
     }
   } catch (e) {} finally {
     loading.value = false
